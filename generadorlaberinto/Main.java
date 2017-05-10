@@ -9,10 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 
-/**
- *
- * @author juan
- */
+
 public class Main extends javax.swing.JFrame {
 
     private Paredes[] pared;
