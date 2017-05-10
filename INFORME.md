@@ -28,9 +28,9 @@
 </ul>
 <b>Product Increment:</b>
 <ul>
-<li>Código generador de laberintos aleatorio(4 SEMANAS)</li>
-<li>Código de generador de laberintos+ Código dibujar laberinto (TOTAL 7 SEMANAS)</li>
-<li>Código generador de laberintos + Código dibujar laberintos + Código de funcionalidad jugable (10 SEMANAS)</li>
+<li>Código generador de laberintos aleatorio(3 SEMANAS)</li>
+<li>Código de generador de laberintos+ Código dibujar laberinto (TOTAL 5 SEMANAS)</li>
+<li>Código generador de laberintos + Código dibujar laberintos + Código de funcionalidad jugable (8 SEMANAS)</li>
 </ul>
 <b>Daily Meting:</b>
 <ul>
