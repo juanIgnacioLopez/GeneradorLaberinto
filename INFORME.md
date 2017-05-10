@@ -9,19 +9,21 @@
 <ul>
 <li>angel_95mza@hotmail.com </li>
 <li>jilopez@outlook.com</li>
-</ul>
-<b>Scrum Master:</b> Juan Ignacio Lopez
-<b>Product Owner:</b> Ángel Manzano
-<b>Development team: </b>
-<ul>
+
+<b>Scrum Master:</b><br> <ul>Juan Ignacio Lopez</ul>
+<b>Product Owner:</b><br> <ul>Ángel Manzano</ul>
+
+<br><b>Development team: </b>
+
 <li>Juan Ignacio Lopez</li>
 <li>Ángel Manzano</li>
 </ul>
 <b>Sprint Backlog:</b>
 <ul>
-<li>Investigación (SPRINT 1-3)</li>
-<li>Código generador de laberintos aleatorios (SPRINT 4-8)</li>
-<li>Código dibujar laberinto (SPRINT 9-11)</li>
+<li>Análisis (SPRINT 1)</li>
+<li>Investigación (SPRINT 2-4)</li>
+<li>Código generador de laberintos aleatorios (SPRINT 5-8)</li>
+<li>Código entorno gráfico (SPRINT 9-11)</li>
 <li>Código funcionalidad jugable (SPRINT 10-13)</li>
 </ul>
 <b>Product Increment:</b>
