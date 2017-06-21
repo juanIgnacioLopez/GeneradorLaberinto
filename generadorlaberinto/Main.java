@@ -1,51 +1,59 @@
-
 package generadorlaberinto;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Toolkit;
-
+import javax.swing.JOptionPane;
 
 public class Main extends javax.swing.JFrame {
 
     private Paredes[] pared;
     private Celdas[] celda;
+    public static int columna = 50;
+    public static int fila = 50;
 
     public Main() {
         initComponents();
         setTitle("Generador de Laberintos aleatorio");
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        Generador gen = new Generador();
-        pared = gen.getPared();
-        celda = gen.getCelda();
-        repaint();
     }
 
     @Override
-    public void paintComponents(Graphics g) {
-        super.paintComponents(g);
-        int col = 4;
-        int fil = 4;
-        int anc = col / 800;
-        int alt = fil / 800;
+    public void paint(Graphics g) {
+        super.paint(g);
+        int anc = Tablero.getWidth() / columna;
+        int alt = Tablero.getHeight() / fila;
+        int corrY = 31;//30
+        int corrX = 8;//7
         for (int i = 0; i < pared.length; i++) {
             if (pared[i].isEliminada() == false) {
-                if (pared[i].getCeldaA() > pared[i].getCeldaA() + col) {
-                    g.setColor(Color.black);
-                    g.drawLine((celda[pared[i].getCeldaA()].getX() * anc), (celda[pared[i].getCeldaA()].getY() * alt), ((celda[pared[i].getCeldaB()].getX() + 1) * anc), (celda[pared[i].getCeldaB()].getY() * alt));
+                //Lineas horizontales
+                if (pared[i].getCeldaB() == pared[i].getCeldaA() + columna) {
+                    g.drawLine(celda[pared[i].getCeldaB()].getX() * anc + corrX, celda[pared[i].getCeldaB()].getY() * anc + corrY, celda[pared[i].getCeldaB()].getX() * anc + anc + corrX, celda[pared[i].getCeldaB()].getY() * anc + corrY);
                 }
-                if (pared[i].getCeldaA() == pared[i].getCeldaB() + 1) {
-                    g.setColor(Color.black);
-                    g.drawLine((celda[pared[i].getCeldaA()].getX() * anc), (celda[pared[i].getCeldaA()].getY() * alt), (celda[pared[i].getCeldaB()].getX() * anc), ((celda[pared[i].getCeldaB()].getY() + 1) * alt));
+                if (pared[i].getCeldaA() == pared[i].getCeldaB() + columna) {
+                    g.drawLine(celda[pared[i].getCeldaA()].getX() * anc + corrX, celda[pared[i].getCeldaA()].getY() * anc + corrY, celda[pared[i].getCeldaA()].getX() * anc + anc + corrX, celda[pared[i].getCeldaA()].getY() * anc + corrY);
 
                 }
+                //Lineas verticales
+                if (pared[i].getCeldaB() == pared[i].getCeldaA() + 1) {
+                    g.drawLine(celda[pared[i].getCeldaB()].getX() * alt + corrX, celda[pared[i].getCeldaB()].getY() * alt + corrY, celda[pared[i].getCeldaB()].getX() * alt + corrX, celda[pared[i].getCeldaB()].getY() * alt + alt + corrY);
+                }
+                if (pared[i].getCeldaB() == pared[i].getCeldaA() - 1) {
+                    g.drawLine(celda[pared[i].getCeldaA()].getX() * alt + corrX, celda[pared[i].getCeldaA()].getY() * alt + corrY, celda[pared[i].getCeldaA()].getX() * alt + corrX, celda[pared[i].getCeldaA()].getY() * alt + alt + corrY);
 
+                }
             }
-
         }
-        Toolkit.getDefaultToolkit().sync();
+        g.drawLine(columna * anc + corrX, 0 + corrY, columna * anc + corrX, fila * anc + corrY);
+        g.drawLine(0 + corrX, 0 + corrY, 0 + corrX, fila * anc + corrY);
+        g.drawLine(0 + corrX, 0 + corrY, columna * anc + corrX, 0 + corrY);
+        g.drawLine(0 + corrX, fila * anc + corrY, columna * anc + corrX, fila * anc + corrY);
+        g.setColor(Color.green);
+        g.fillRect(0 + corrX, 0 + corrY, alt, anc);
+
+        g.setColor(Color.red);
+        g.fillRect((columna - 1) * anc + corrX, (fila - 1) * alt + corrY, alt, anc);
     }
 
     /**
@@ -58,9 +66,12 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         Tablero = new javax.swing.JPanel();
+        btnGenerar = new javax.swing.JButton();
+        btnTamaño = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 800));
+        setMaximumSize(new java.awt.Dimension(800, 849));
+        setMinimumSize(new java.awt.Dimension(800, 849));
 
         Tablero.setBackground(new java.awt.Color(255, 255, 255));
         Tablero.setMaximumSize(new java.awt.Dimension(800, 800));
@@ -77,19 +88,67 @@ public class Main extends javax.swing.JFrame {
             .addGap(0, 800, Short.MAX_VALUE)
         );
 
+        btnGenerar.setText("Generar");
+        btnGenerar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarActionPerformed(evt);
+            }
+        });
+
+        btnTamaño.setText("Tamaño");
+        btnTamaño.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTamañoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Tablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Tablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnGenerar)
+                .addGap(18, 18, 18)
+                .addComponent(btnTamaño))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Tablero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Tablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGenerar)
+                    .addComponent(btnTamaño))
+                .addGap(11, 11, 11))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
+
+        pared = null;
+        celda = null;
+
+        Generador gen = new Generador();
+        pared = gen.getPared();
+        celda = gen.getCelda();
+
+        repaint();
+    }//GEN-LAST:event_btnGenerarActionPerformed
+
+    private void btnTamañoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTamañoActionPerformed
+
+        String cadenaTamaño;
+        int tamaño;
+        cadenaTamaño = JOptionPane.showInputDialog(null, "Tamaño (nXn): ");
+        tamaño = Integer.parseInt(cadenaTamaño);
+        columna = tamaño;
+        fila = columna;
+
+    }//GEN-LAST:event_btnTamañoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,5 +187,7 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Tablero;
+    private javax.swing.JButton btnGenerar;
+    private javax.swing.JButton btnTamaño;
     // End of variables declaration//GEN-END:variables
 }

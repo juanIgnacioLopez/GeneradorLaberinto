@@ -1,6 +1,7 @@
-
 package generadorlaberinto;
 
+import static generadorlaberinto.Main.columna;
+import static generadorlaberinto.Main.fila;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Stack;
@@ -12,14 +13,23 @@ public class Generador {
     //Arreglo de objetos tipo Paredes, donde se almacenaran todas las paredes.
     private Paredes[] pared;
     //Cantidad de filas.
-    private int fila = 4;
+    //private int fila=150;
     //Cantidad de columnas.
-    private int columna = 4;
+    //private int columna=150;
     private int x;
     private int y;
     private int i;
+    //ArrayList de lineas a dibujar
+    //private ArrayList<Linea> lineas;
+    //private Main m = new Main();
 
+    //public Generador(int fila, int columna) {
+    //  this.fila = fila;
+    //this.columna = columna;
+    //}
     public Generador() {
+        //fila = m.getColumna();
+        //columna = fila;
         //Creo el arreglo de tipo Celdas.
         celda = new Celdas[fila * columna];
         //Creo el arreglo de tipo Columnas.
@@ -30,6 +40,8 @@ public class Generador {
         listaParedes();
         //Ejecuto metodo eliminaParedes().
         eliminaParedes();
+        //Ejecuto metodo agregaLineas
+        //agregaLineas();
 
     }
 
@@ -47,22 +59,6 @@ public class Generador {
 
     public void setPared(Paredes[] pared) {
         this.pared = pared;
-    }
-
-    public int getFila() {
-        return fila;
-    }
-
-    public void setFila(int fila) {
-        this.fila = fila;
-    }
-
-    public int getColumna() {
-        return columna;
-    }
-
-    public void setColumna(int columna) {
-        this.columna = columna;
     }
 
     /**
@@ -168,7 +164,7 @@ public class Generador {
             } else if (!pila.empty()) {
                 //...saco una celda de la pila...
                 for (int i = 0; i < pila.size(); i++) {
-                    
+
                     if (celda[pila.peek()].isEnPila()) {
                         //...y la marco como celda actual.
                         celdaActual = pila.pop();
@@ -233,4 +229,28 @@ public class Generador {
         return -1;
     }
 
+    //  public void agregaLineas() {
+    //    int anc = 800 / columna;
+    //  int alt = 800 / fila;
+    //for (int i = 0; i < pared.length; i++) {
+    //  if (pared[i].isEliminada() == false) {
+    //    Linea l = new Linea(x, x, y, y);
+    //  lineas.add(new Linea((celda[pared[i].getCeldaA()].getX() * anc), (celda[pared[i].getCeldaA()].getY() * alt), ((celda[pared[i].getCeldaB()].getX()) * anc), (celda[pared[i].getCeldaB()].getY() * alt)));
+    //}
+    //}
+    //}
 }
+
+//class Linea {
+//  int x1;
+//int x2;
+//int y1;
+//int y2;
+//public Linea(int x1, int x2, int y1, int y2) {
+//  this.x1 = x1;
+//this.x2 = x2;
+// this.y1 = y1;
+//this.y2 = y2;
+//}
+
+//}
